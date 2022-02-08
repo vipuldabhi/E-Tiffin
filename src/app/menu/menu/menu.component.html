@@ -1,0 +1,203 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Filter</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <button class="btn btn-outline-dark"
+                                        (click)="changeRestaurantDiaplay()">Restaurant</button>
+                                </li>
+                                <li class="nav-item ms-4">
+                                    <button class="btn btn-outline-dark" (click)="changeMealChargesDiaplay()">Meal
+                                        Charges</button>
+                                </li>
+                            </ul>
+                            <div class="restaurant" *ngIf="DiaplayRestaurant">
+                                <label>Ratings : </label><br>
+                                <input type="radio" id="asc" name="sorting" value=1 [(ngModel)]=sorting>
+                                <label for="asc">Low-High</label><br>
+                                <input type="radio" id="dsc" name="sorting" value=0 [(ngModel)]=sorting>
+                                <label for="dsc">High-Low</label><br>
+                            </div>
+                            <div class="menucharges" *ngIf="DiaplayMealcharges">
+                                <input type="radio" id="sortlunch" name="intervalid" value=1 [(ngModel)]=intervalid>
+                                <label for="sortlunch">Lunch</label>
+                                <input type="radio" id="sortdinner" name="intervalid" value=2 [(ngModel)]=intervalid>
+                                <label for="sortdinner">Dinner</label><br>
+                                <input type="radio" id="asc" name="sorting1" value=1 [(ngModel)]=sorting>
+                                <label for="asc">Low-High</label>
+                                <input type="radio" id="dsc" name="sorting1" value=0 [(ngModel)]=sorting>
+                                <label for="dsc">High-Low</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="sortedRestaurantOnRating()"
+                                *ngIf="DiaplayRestaurant" data-bs-dismiss="modal">Apply</button>
+
+                            <button type="button" class="btn btn-primary" (click)="sortedmealchargesdata()"
+                                *ngIf="DiaplayMealcharges" data-bs-dismiss="modal">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-4 text-center">
+        <h1>Explore Our Menu</h1>
+        <hr class="w-50 mx-auto">
+    </div>
+    <div class="row m-5 border p-5 shadow">
+        <div class="col">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="interval">Interval:</label>
+                    <div>
+                        <input id="lunch" type="radio" value="lunch" name="interval" formControlName="interval"
+                            (change)="changeInterval($event)" class="form-check-input">
+                        <label for="lunch" class="form-check-label">Lunch</label>
+                    </div>
+                    <div>
+                        <input id="dinner" type="radio" value="dinner" name="interval" formControlName="interval"
+                            class="form-check-input" (change)="changeInterval($event)">
+                        <label for="dinner" class="form-check-label">Dinner</label>
+                    </div>
+                    <div>
+                        <label for="day" class="form-label mt-2">Select Day :</label>
+
+                        <select formControlName="day" id="day" (change)="changeDay($event)" class="form-select">
+                            <ng-container *ngFor="let i of weekdaysList;">
+                                <option value={{i.dayId}}>{{i.weekDayName}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="restaurant" class="form-label">Select Restaurant :</label>
+
+                        <select formControlName="restaurant" id="restaurant" (change)="changeRestaurant($event)"
+                            class="form-select">
+                            <ng-container *ngFor="let i of restaurantList;">
+                                <option value={{i.restaurantName}}>{{i.restaurantName}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-2" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let i of daywisemenu;let n=index">
+                        <tr>
+                            <td>{{n+1}}</td>
+                            <td>{{i.foodName}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="my-5 text-center">
+        <h1>Restaurants and Charges Details</h1>
+        <hr class="w-75 mx-auto">
+    </div>
+    <div class="row">
+        <div class="col d-flex flex-column align-items-center">
+            <br />
+            <div class="search-hero d-flex justify-content-center">
+                <h5>Restaurants : </h5>
+                <div class="w-25">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+                        placeholder="Search">
+                </div>
+            </div>
+            <br>
+            <br>
+            <table class="table table-bordered w-75">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Restaurant</th>
+                        <th>Ratings</th>
+                        <th>Area</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let i of restaurantRatings | filter : searchText ; let n=index">
+                        <tr>
+                            <td>{{n+1}}</td>
+                            <td>{{i.restaurantName}}</td>
+                            <td>{{i.avgRating1}}</td>
+                            <td>{{i.areaName}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col d-flex flex-column align-items-center">
+            <br />
+            <div class="d-flex justify-content-center">
+                <h5>Meal Charges : </h5>
+                <div class="search-restaurant w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchRestaurant"
+                        autocomplete="off" placeholder="Search">
+                </div>
+                <!-- Button trigger modal -->
+                <div class="ms-auto">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        Filter
+                    </button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <table class="table table-bordered w-75">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Restaurant Name</th>
+                        <th>Interval</th>
+                        <th>Charges</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let i of mealCharges | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } | filter : searchRestaurant ; let n=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(n+1)}}</td>
+                            <td>{{i.restaurantName}}</td>
+                            <td>{{i.intervalName}}</td>
+                            <td>{{i.charge}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+
+            </table>
+            <div class="mt-5">
+                <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                    (pageChange)="handlePageChange($event)"></pagination-controls>
+            </div>
+            <br />
+        </div>
+    </div>
+</div>

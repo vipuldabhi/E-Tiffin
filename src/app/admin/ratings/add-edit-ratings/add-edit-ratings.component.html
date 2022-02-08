@@ -1,0 +1,50 @@
+<div>
+    <div class="row">
+        <div class="text-center mt-3">
+            <h2 class="my-3" *ngIf="isAddMode">Add Ratings</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit Ratings</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="ratingsForm" (ngSubmit)="submit()">
+                <div class="form-group mb-4"> 
+                    <select class="form-select" id="restaurantId" formControlName="restaurantId">
+                        <option>Please Select Restaurant</option>
+                        <ng-container *ngFor="let restaurant of restaurantList">
+                            <option value={{restaurant.id}}>{{restaurant.restaurantName}}</option>
+                        </ng-container>
+                    </select>
+                </div>   
+                <div class="form-group mb-4">
+                    <select class="form-select" id="userId" formControlName="userId">
+                        <option>Please Select UserId</option>
+                        <ng-container *ngFor="let user of userList">
+                            <option value={{user.userId}}>{{user.userId}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Enter Rating</label>
+                    <input type="number" formControlName="rating1" class="form-control" id="rating1"
+                        placeholder="Enter Rating" value="rating1">
+                    <div *ngIf="rating1!==null">
+                        <div *ngIf="rating1.invalid && (rating1.dirty || rating1.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="rating1.errors?.['required']">
+                                Rating is required.
+                            </div>
+                            <div *ngIf="rating1.errors?.['pattern']">
+                                Rating only contains digits.
+                            </div>
+                            <div *ngIf="rating1.errors?.['maxlength']">
+                                Rating is maximum 3 digit long".
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary my-4 ms-5">add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

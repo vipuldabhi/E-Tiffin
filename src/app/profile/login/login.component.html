@@ -1,0 +1,64 @@
+<section class="">
+    <div class="imgbox">
+        <img src="../../../assets/Images/login1.jpg" class="shadow">
+    </div>
+    <div class="contentBox ">
+        <div class="formBox shadow p-5">
+            <form [formGroup]="loginForm" (ngSubmit)="submit()" >
+                <h2>Login</h2>        
+                <div class="form-group">      
+                    <select id="role" class="form-select" 
+                        formControlName="role" (change)="changeRole($event)">
+                        <ng-container *ngFor="let i of roles">
+                            <option value={{i}}>{{i | uppercase}}</option>       
+                        </ng-container>   
+                    </select>
+                </div>
+                <div class="inputBox form-group">
+                    <span>Username</span>
+                    <input type="email" formControlName="Email" class="form-control" id="Email"
+                        placeholder="Enter Email" value="Email">
+                    <div *ngIf="Email!==null">
+                        <div *ngIf="Email.invalid && (Email.dirty || Email.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="Email.errors?.['required']">
+                                UserName is required.
+                            </div>
+                            <div *ngIf="Email.errors?.['email']">
+                                Enter valid Email.
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <span>Password</span>
+                    <input type="password" formControlName="Password" class="form-control" id="Password"
+                        placeholder="Enter Password" value="Password">
+                    <div *ngIf="Password!==null">
+                        <div *ngIf="Password.invalid && (Password.dirty || Password.touched)"    
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="Password.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div *ngIf="Password.errors?.['pattern']">
+                               Please Enter Strong Password!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="remember">
+                    <label><input type="checkbox" formControlName="remember">Remember me</label>
+                </div>
+                <div class="forgetpassword mb-3">
+                    <span><a href="forgetpassword">Forget Password?</a></span>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="signIn">
+                </div>
+                <div class="inputBox mt-3">
+                    <p>Dont't have an Account? <a href="register">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

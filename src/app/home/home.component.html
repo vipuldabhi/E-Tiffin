@@ -1,0 +1,179 @@
+<div class="row">
+  <div class="col-md-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+    <div class="text">
+      <h3>Never Stop</h3>
+      <h4>Exploring The Food</h4>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-6">
+    <div class="image">
+      <img src="../../../assets/Images/food.jpg" class="container-fluid p-5">
+    </div>
+  </div>
+</div>
+
+<div class="step-heading text-center">
+  <p>E-Tiffin TIFFIN SERVICE</p>
+</div>
+<hr class="w-50 mx-auto mt-4">
+
+<div class="step-container">
+  <div class="text-center box">
+    <div class="imgDiv">
+      <img src="../../assets/Images/icon1.png">
+    </div>
+    <div class="textDiv">
+      BEST QUALITY
+      <br>
+      INGREDIENTS
+    </div>
+  </div>
+  <div class="text-center box">
+    <div class="imgDiv">
+      <img src="../../assets/Images/icon2.png">
+    </div>
+    <div class="textDiv">
+      AMAZING
+      <br>
+      CUSTOMER SERVICE
+    </div>
+  </div>
+  <div class="text-center box">
+    <div class="imgDiv">
+      <img src="../../assets/Images/icon3.png">
+    </div>
+    <div class="textDiv">
+      IN HOUSE
+      <br>
+      NUTRITIONIST
+    </div>
+  </div>
+  <div class="text-center box">
+    <div class="imgDiv">
+      <img src="../../assets/Images/icon4.png">
+    </div>
+    <div class="textDiv">
+      EASY ORDERING AND
+      <br>
+      CANCELLATION POLICY
+    </div>
+  </div>
+</div>
+
+<div class="step-heading text-center mt-5">
+  <p>FOODIES MOTIVATION</p>
+</div>
+<hr class="w-50 mx-auto mt-2 mb-4">
+
+<div class="row d-flex flex-wrap justify-content-center">
+  <div class="card m-4 shadow" style="width: 15rem; height: 18rem;">
+    <img src="../../assets/Images/food3.jpg" class="card-img-top container-fluid" alt="..." 
+      style=" height: 8rem;">
+    <div class="card-body">
+      <p class="card-text p-4">“So long as you have food in your mouth you have solved all questions for the time
+        being.”</p>
+    </div>
+  </div>
+  <div class="card m-4 shadow" style="width: 15rem; height: 18rem;">
+    <img src="../../assets/Images/food4.jpg" class="card-img-top container-fluid" alt="..." 
+      style=" height: 8rem;">
+    <div class="card-body">
+      <p class="card-text p-4">“To me, food is as much about the moment, the occasion, the location and the company as
+        it is about the taste.”</p>
+    </div>
+  </div>
+  <div class="card m-4 shadow" style="width: 15rem; height: 18rem;">
+    <img src="../../assets/Images/food5.jpg" class="card-img-top container-fluid" alt="..." 
+      style=" height: 8rem;">
+    <div class="card-body">
+      <p class="card-text p-4 mt-4">“Food is really and truly the most effective medicine.”</p>
+    </div>
+  </div>
+  <div class="card m-4 shadow" style="width: 15rem; height: 18rem;">
+    <img src="../../assets/Images/food6.jpg" class="card-img-top container-fluid" alt="..." 
+      style=" height: 8rem;">
+    <div class="card-body">
+      <p class="card-text p-4 mt-4">“People Who love to eat are always the best people.”</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="step-heading text-center mt-5">
+  <p>CONTACT US</p>
+</div>
+<hr class="w-50 mx-auto mt-2 mb-5">
+
+<div class="d-flex justify-content-center contact">
+  <form [formGroup]="contactInfoForm" (ngSubmit)="submit()" class="w-50 shadow mb-5 p-5">
+    <div class="form-group">
+      <label for="fullName" class="form-label mt-2">FullName : </label>
+      <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="Enter FullName"
+        value="fullName">
+      <div *ngIf="fullName!==null">
+        <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+          <div *ngIf="fullName.errors?.['required']">
+            fullName is required.
+          </div>
+          <div *ngIf="fullName.errors?.['pattern']">
+            fullName only contain alphabets.
+          </div>
+          <div *ngIf="fullName.errors?.['minlength']">
+            FullName is atleast 5 character long.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="form-label mt-2">Email : </label>
+      <input type="email" formControlName="email" class="form-control" id="email" placeholder="Enter Email"
+        value="email">
+      <div *ngIf="email!==null">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+          <div *ngIf="email.errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="email.errors?.['pattern']">
+            Enter Valid Email.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactNo" class="form-label mt-2">Contact No : </label>
+      <input type="text" formControlName="contactNo" class="form-control" id="contactNo" placeholder="Enter ContactNo"
+        value="contactNo">
+      <div *ngIf="contactNo!==null">
+        <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+          <div *ngIf="contactNo.errors?.['required']">
+            ContactNo is required.
+          </div>
+          <div *ngIf="contactNo.errors?.['pattern']">
+            ContactNo Only Contains Digits.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject" class="form-label mt-2">Subject : </label>
+      <input type="text" formControlName="subject" class="form-control" id="subject" placeholder="Enter Subject"
+        value="subject">
+      <div *ngIf="subject!==null">
+        <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+          <div *ngIf="subject.errors?.['required']">
+            Subject is required.
+          </div>
+          <div *ngIf="subject.errors?.['pattern']">
+            Subject is required.
+          </div>
+          <div *ngIf="subject.errors?.['minlength']">
+            Subject is atleast 10 character long.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary mt-4" [ngClass]="{disabled : contactInfoForm.invalid}">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center ">
+            <h2 class="my-3">Menu-List</h2>
+            <button class="btn btn-outline-success mb-4 px-4 me-4" routerLink="../addeditmenu">add</button>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchMenu" autocomplete="off"
+                        placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>DayId</th>
+                            <th>FoodName</th>
+                            <th>IntervalId</th>
+                            <th>RestaurantName</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let menu of menuList | filter : searchMenu | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } ;let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{menu.dayId}}</td>
+                            <td>{{menu.foodName}}</td>
+                            <td>{{menu.intervalId}}</td>
+                            <td>{{menu.restaurantName}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditmenu/{{menu.menuId}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{menu.menuId}}
+                                    (click)="deleteMenu($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center ">
+            <h2 class="my-3">Duration-List</h2>
+            <button class="btn btn-outline-success mb-5 px-4 me-4" routerLink="../addeditduration">add</button>
+
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let duration of durationList;let i=index">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{duration.durationTime}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditduration/{{duration.durationId}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{duration.durationId}}
+                                    (click)="deleteDuration($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

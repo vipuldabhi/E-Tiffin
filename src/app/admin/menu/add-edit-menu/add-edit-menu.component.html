@@ -1,0 +1,47 @@
+<div>                                               
+    <div class="row">
+        <div class="text-center mt-3">
+            <h2 class="my-3" *ngIf="isAddMode">Add Menu</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit Menu</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="menuForm" (ngSubmit)="submit()">
+                <div class="form-group mb-4">
+                    <select class="form-select" id="dayId" formControlName="dayId">
+                        <option>Please Select Day</option>
+                        <ng-container *ngFor="let day of dayList">
+                            <option value={{day.dayId}}>{{day.weekDayName}}</option>
+                        </ng-container>
+                    </select>
+                </div>                           
+                <div class="form-group mb-4">
+                    <select class="form-select" id="foodId" formControlName="foodId">
+                        <option>Please Select Food</option>    
+                        <ng-container *ngFor="let food of foodList">
+                            <option value={{food.foodId}}>{{food.foodName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="restaurantsId" formControlName="restaurantsId">
+                        <option>Please Select Restaurant</option>
+                        <ng-container *ngFor="let restaurant of restaurantList">
+                            <option value={{restaurant.id}}>{{restaurant.restaurantName}}</option>
+                        </ng-container>
+                    </select>                             
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="intervalId" formControlName="intervalId">
+                        <option>Please Select Interval</option>
+                        <ng-container *ngFor="let interval of intervalList">
+                            <option value={{interval.intervalId}}>{{interval.intervalName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary my-4 ms-5" >add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>

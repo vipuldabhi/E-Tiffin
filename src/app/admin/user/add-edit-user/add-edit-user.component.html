@@ -1,0 +1,172 @@
+<div class="my-5">
+    <form [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="text-center mt-3">
+            <h2 class="my-3" *ngIf="isAddMode">Add User</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit User</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mx-5">
+                <div class="inputBox form-group">
+                    <label for="FirstName">FirstName</label>
+                    <input type="text" formControlName="firstName" class="form-control"
+                        placeholder="Enter Your FirstName" id="FirstName">
+                    <div *ngIf="firstName!==null">
+                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="firstName.errors?.['required']">
+                                FirstName is required.
+                            </div>
+                            <div *ngIf="firstName.errors?.['minlength']">
+                                FirstName atleast 3 character long!!!
+                            </div>
+                            <div *ngIf="firstName.errors?.['maxlength']">
+                                FirtName is maximum 20 character long!!!
+                            </div>
+                            <div *ngIf="firstName.errors?.['pattern']">
+                                Please Enter Valid FirstName!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="middlename">MiddleName</label>
+                    <input type="text" formControlName="middleName" class="form-control"
+                        placeholder="Enter Your MiddleName" id="middleName">
+                    <div *ngIf="middleName!==null">
+                        <div *ngIf="middleName.invalid && (middleName.dirty || middleName.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="middleName.errors?.['required']">
+                                MiddleName is required.
+                            </div>
+                            <div *ngIf="middleName.errors?.['minlength']">
+                                MiddleName atleast 3 character long!!!
+                            </div>
+                            <div *ngIf="middleName.errors?.['maxlength']">
+                                Middle is maximum 20 character long!!!
+                            </div>
+                            <div *ngIf="middleName.errors?.['pattern']">
+                                Please Enter Valid middleName!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="lastname">LastName</label>
+                    <input type="text" formControlName="lastName" class="form-control" placeholder="Enter Your LastName"
+                        id="LastName">
+                    <div *ngIf="lastName!==null">
+                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="lastName.errors?.['required']">
+                                LastName is required.
+                            </div>
+                            <div *ngIf="lastName.errors?.['minlength']">
+                                LastName atleast 3 character long!!!
+                            </div>
+                            <div *ngIf="lastName.errors?.['maxlength']">
+                                LastName is maximum 20 character long!!!
+                            </div>
+                            <div *ngIf="lastName.errors?.['pattern']">
+                                Please Enter Valid LastName!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="email">Email</label>
+                    <input type="email" formControlName="email" class="form-control" placeholder="Enter Your Email"
+                        id="Email">
+                    <div *ngIf="email!==null">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="email.errors?.['required']">
+                                Email is required.
+                            </div>
+                            <div *ngIf="email.errors?.['email']">
+                                Please Enter Valid Email!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="mobileNo">MobileNo</label>
+                    <input type="text" formControlName="mobileNo" class="form-control" placeholder="Enter Your MobileNo"
+                        id="mobileNo">
+                    <div *ngIf="mobileNo!==null">
+                        <div *ngIf="mobileNo.invalid && (mobileNo.dirty || mobileNo.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="mobileNo.errors?.['required']">
+                                MobileNo is required.
+                            </div>
+                            <div *ngIf="mobileNo.errors?.['pattern']">
+                                MobileNo only contains 0-9 and length is 10!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="inputBox form-group">
+                    <label>Select Area : </label>
+                    <select id="areaId" class="form-select" formControlName="areaId">
+                        <option>Please Select Area</option>
+                        <ng-container *ngFor="let i of areaList">
+                            <option value={{i.areaId}}>{{i.areaName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="Address">Address</label>
+                    <input type="text" formControlName="address" class="form-control" placeholder="Enter Your Address"
+                        id="address">
+                    <div *ngIf="address!==null">
+                        <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="address.errors?.['required']">
+                                Address is required.
+                            </div>
+                            <div *ngIf="address.errors?.['pattern']">
+                                Address only contains 0-9!!!
+                            </div>
+                            <div *ngIf="address.errors?.['minlength']">
+                                Address is atleast 10 character long!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control"
+                        placeholder="Enter Your Password" id="Password">
+                    <div *ngIf="password!==null">
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="password.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div *ngIf="password.errors?.['pattern']">
+                                Please Enter Strong Password!!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox form-group">
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" class="form-control"
+                        placeholder="Enter Your ConfirmPassword" id="ConfirmPassword">
+                    <div *ngIf="confirmPassword!==null">
+                        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                            class="text-danger m-0 p-0 ms-1">
+                            <div *ngIf="confirmPassword.errors?.['required']">
+                                ConfirmPassword is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputBox mt-3">
+                    <input type="submit" value="add-edit" [ngClass]="{disable:userForm.invalid}">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

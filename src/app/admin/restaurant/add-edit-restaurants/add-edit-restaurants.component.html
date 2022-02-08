@@ -1,0 +1,36 @@
+<div>
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3" *ngIf="isAddMode">Add Restaurant</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit Restaurant</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="restaurantForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="restaurantName"></label>
+                    <input type="text" formControlName="restaurantName" class="form-control" id="restaurantName" placeholder="Enter RestaurantName"
+                        value="restaurantName">
+                    <div *ngIf="restaurantName!==null">
+                        <div *ngIf="restaurantName.invalid && (restaurantName.dirty || restaurantName.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="restaurantName.errors?.['required']">
+                                RestaurantName is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group my-3"> 
+                    <select class="form-select" id="areaId" formControlName="areaId">
+                        <option>Please Select Area</option>
+                        <ng-container *ngFor="let area of areaList">
+                            <option value={{area.areaId}}>{{area.areaName}}</option>
+                        </ng-container>
+                    </select>
+                </div> 
+                <div>
+                    <button class="btn btn-primary my-4 ms-5" 
+                    [ngClass]="{disabled : restaurantForm.invalid}">add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

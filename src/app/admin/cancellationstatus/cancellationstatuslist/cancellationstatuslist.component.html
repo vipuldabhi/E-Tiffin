@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row d-flex flex-column">
+        <div class="col d-flex">
+            <div class="text-center ">
+                <h2 class="my-3">CancellationStatus-List</h2>
+                <button class="btn btn-outline-success mb-4 px-4 me-4"
+                    routerLink="../addeditcancellationstatus">add</button>
+            </div>
+            <div class="mt-3 ms-auto d-flex justify-content-center">
+                <div>
+                    <label>Sort By : </label><br>
+                    <input type="radio" id="asc" name="sorting" value=1 (change)="change($event)"
+                        class="mt-2">
+                    <label for="asc">low-high</label><br>
+                    <input type="radio" id="dsc" name="sorting" value=0 (change)="change($event)">
+                    <label for="dsc">high-low</label><br>
+                    <button type="button" class="btn btn-outline-danger btn-sm mt-2" (click)="reset()">
+                        Remove Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-2 ms-auto w-25">
+                <input class="form-control" type="text" name="searchres" [(ngModel)]="searchStatus" autocomplete="off"
+                    placeholder="Search">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>OrderId</th>
+                            <th>CancellationDate</th>
+                            <th>Interval</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let status of cancellationstatusList | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } | filter : searchStatus ;let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{status.orderId}}</td>
+                            <td>{{status.cancellationDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{status.intervalName}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditcancellationstatus/{{status.cancellationId}}">edit</button>
+                            </td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{status.cancellationId}}
+                                    (click)="deleteStatus($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

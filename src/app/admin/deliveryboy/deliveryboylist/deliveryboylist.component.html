@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row d-flex flex-column">
+        <div class="col d-flex">
+            <div class="text-center mt-4">
+                <h2 class="my-3">DeliveryBoy-List</h2>
+                <button class="btn btn-outline-success mb-4 px-4 me-4" routerLink="../addeditdeliveryboy">add</button>
+            </div>
+            <div class="mt-3 ms-auto d-flex flex-column justify-content-center">
+                <div>
+                    <label>Sort By : </label><br>
+                    <input type="radio" id="asc" name="sorting" value=1 [(ngModel)]=sorting (change)="change()"
+                        class="mt-2">
+                    <label for="asc">A-Z</label><br>
+                    <input type="radio" id="dsc" name="sorting" value=0 [(ngModel)]=sorting (change)="change()">
+                    <label for="dsc">Z-A</label><br>
+                </div>
+                <div class="mb-1 mt-2">
+                    <input type="radio" id="orderDate" name="reference" value=3 [(ngModel)]=reference
+                        (change)="change()" class="">
+                    <label for="orderDate">FirstName</label><br>
+                    <input type="radio" id="orderPlaceDate" name="reference" value=4 [(ngModel)]=reference
+                        (change)="change()">
+                    <label for="orderPlaceDate">LastName</label><br>
+                </div>
+                <button type="button" class="btn btn-outline-danger btn-sm mb-1" (click)="reset()">
+                    Remove Filter
+                </button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchDeliveryBoy"
+                        autocomplete="off" placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>FirstName</th>
+                            <th>MiddleName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>MobileNo</th>
+                            <th>AssignedArea</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let deliveryboy of deliveryboyList | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } | filter : searchDeliveryBoy;let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{deliveryboy.firstName}}</td>
+                            <td>{{deliveryboy.middleName}}</td>
+                            <td>{{deliveryboy.lastName}}</td>
+                            <td>{{deliveryboy.email}}</td>
+                            <td>{{deliveryboy.mobileNo}}</td>
+                            <td>{{deliveryboy.areaName}}</td>
+                            <td>{{deliveryboy.address}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditdeliveryboy/{{deliveryboy.id}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{deliveryboy.id}}
+                                    (click)="deleteDeliveryBoy($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div>
+    <div class="row">
+        <div class="text-center mt-3">
+            <h2 class="my-3" *ngIf="isAddMode">Add DeliveryCharges</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit DeliveryCharges</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="deliverychargesForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="durationId"></label>
+                    <select class="form-select" id="durationId" formControlName="durationId">
+                        <option>Please Select Duration</option>
+                        <ng-container *ngFor="let duration of durationList">
+                            <option value={{duration.durationId}}>{{duration.durationTime}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="charge"></label>
+                    <input type="number" formControlName="charge" class="form-control" id="charge" placeholder="Enter Charge">
+                    <div *ngIf="charge!==null">
+                        <div *ngIf="charge.invalid && (charge.dirty || charge.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="charge.errors?.['required']">
+                                Charge is required.
+                            </div>
+                            <div *ngIf="charge.errors?.['pattern']">
+                                Charge only contain Digits.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary my-4 ms-5" 
+                    [ngClass]="{disabled : deliverychargesForm.invalid}">add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

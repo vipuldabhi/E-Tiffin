@@ -1,0 +1,37 @@
+<div>
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3" *ngIf="isAddMode">Add Interval</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit Interval</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="intervalForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="intervalName"></label>
+                    <input type="text" formControlName="intervalName" class="form-control" id="intervalName" placeholder="Enter IntervalName"
+                        value="intervalName">
+                    <div *ngIf="intervalName!==null">
+                        <div *ngIf="intervalName.invalid && (intervalName.dirty || intervalName.touched)" class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="intervalName.errors?.['required']">
+                                Interval is required.
+                            </div>
+                            <div *ngIf="intervalName.errors?.['pattern']">
+                                Interval only contain alphabets.
+                            </div>
+                            <div *ngIf="intervalName.errors?.['minlength']">
+                                Interval is atleast 5 character long.
+                            </div>
+                            <div *ngIf="intervalName.errors?.['maxlength']">
+                                Interval is maximum 20 character long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary my-4 ms-5" 
+                    [ngClass]="{disabled : intervalForm.invalid}">add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

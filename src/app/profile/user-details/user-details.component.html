@@ -1,0 +1,88 @@
+<div>
+    <div class="row">
+        <div class="col my-5 ms-5 ms-2">
+            <div class="card shadow p-5">
+                <div class="card-body">
+                    <h5 class="card-title">Hello, {{userData.firstName | titlecase}}...</h5>
+                    <hr>
+                    <div class="mb-3">
+                        <span>FullName : </span>
+                        <span>{{userData.firstName | titlecase}} {{userData.middleName | titlecase}} {{userData.lastName
+                            | titlecase}}</span> <br />
+                    </div>
+                    <div class="mb-3">
+                        <span>Email : </span>
+                        <span>{{userData.email}}</span> <br />
+                    </div>
+                    <div class="mb-3">
+                        <span>MobileNo : </span>
+                        <span>{{userData.mobileNo}}</span> <br />
+                    </div>
+                    <div class="mb-3">
+                        <span>Address : </span>
+                        <span>{{userData.address}}</span> <br />
+                    </div>
+                    <div class="mb-3">
+                        <span>Area : </span>
+                        <span>{{userData.areaName}}</span> <br />
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-outline-primary"
+                            (click)="navigateToEditUserDetails()">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-5 me-5 ms-2">
+            <div *ngIf="hasOrder">
+                <div class="card shadow p-5">
+                    <div class="card-body">
+                        <h5 class="card-title">Your, OrderDetails...</h5>
+                        <hr>
+                        <div class="mb-3">
+                            <span>Restaurant : </span>
+                            <span>{{orderData.restaurantName}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>Interval : </span>
+                            <span>{{orderData.intervalName}} </span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>FoodType : </span>
+                            <span>{{orderData.typeName}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>DurationTime : </span>
+                            <span>{{orderData.durationTime}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>OrderPlaceDate : </span>
+                            <span>{{orderData.orderPlaceDate | date:'dd/MM/yyyy'}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>OrderDate : </span>
+                            <span>{{orderData.orderDate | date:'dd/MM/yyyy'}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>Area : </span>
+                            <span>{{orderData.areaName}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>Address : </span>
+                            <span>{{orderData.address}}</span> <br />
+                        </div>
+                        <div class="mb-3">
+                            <span>PaymentId : </span>
+                            <span>{{orderData.paymentId}}</span> <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!hasOrder">
+                <div class="d-flex justify-content-center align-content-center">
+                    <h3>You Do Not Have Any Order Yet!!!</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

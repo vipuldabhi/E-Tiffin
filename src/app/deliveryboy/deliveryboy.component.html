@@ -1,0 +1,48 @@
+<div>
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="cancellationstatus">CancellationStatus</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="deliverystatus">DeliveryStatus</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="">
+        <div class="card shadow w-50 mx-auto m-5 p-3">
+            <div class="card-body">
+                <h5 class="card-title">Hello, {{deliveryboyData.firstName | titlecase}}...</h5>
+                <hr>
+                <div class="mb-3">
+                    <span>FullName : </span>
+                    <span>{{deliveryboyData.firstName | titlecase}} {{deliveryboyData.middleName | titlecase}} {{deliveryboyData.lastName
+                        | titlecase}}</span> <br />
+                </div>
+                <div class="mb-3">
+                    <span>Email : </span>
+                    <span>{{deliveryboyData.email}}</span> <br />
+                </div>
+                <div class="mb-3">
+                    <span>MobileNo : </span>
+                    <span>{{deliveryboyData.mobileNo}}</span> <br />
+                </div>
+                <div class="mb-3">
+                    <span>Address : </span>
+                    <span>{{deliveryboyData.address}}</span> <br />
+                </div>
+                <div class="mb-3">
+                    <span>AsignedArea : </span>
+                    <span>{{deliveryboyData.areaName}}</span> <br />
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-primary"
+                        (click)="navigateToEditDeliveryBoyDetails()">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

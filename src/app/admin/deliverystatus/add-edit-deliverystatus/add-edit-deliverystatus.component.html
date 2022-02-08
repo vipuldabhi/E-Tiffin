@@ -1,0 +1,55 @@
+<div>
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3" *ngIf="isAddMode">Add DeliveryStatus</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit DeliveryStatus</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="deliveryStatusForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <select class="form-select" id="orderId" formControlName="orderId">
+                        <option>Please Select OrderId</option>
+                        <ng-container *ngFor="let order of orderList">     
+                            <option value={{order.orderId}}>{{order.orderId}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="intervalId"></label>
+                    <select class="form-select" id="intervalId" formControlName="intervalId">
+                        <option>Please Select Interval</option>
+                        <ng-container *ngFor="let interval of intervalList">
+                            <option value={{interval.intervalId}}>{{interval.intervalName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status"></label>
+                    <select class="form-select" id="status" formControlName="status">
+                        <option>Please Select Status</option>
+                            <option value=true>Delivered</option>
+                            <option value=false>Pending</option>
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="deliveryDate">Enter DeliveryDate : </label>
+                    <input type="datetime-local" formControlName="deliveryDate" class="form-control" id="deliveryDate"
+                        placeholder="Enter DeliveryDate" value="deliveryDate">
+                    <div *ngIf="deliveryDate!==null">
+                        <div *ngIf="deliveryDate.invalid && (deliveryDate.dirty ||                   deliveryDate.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="deliveryDate.errors?.['required']">
+                                DeliveryDate is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button class="btn btn-primary my-4 ms-5"
+                        [ngClass]="{disabled : deliveryStatusForm.invalid}">add-update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

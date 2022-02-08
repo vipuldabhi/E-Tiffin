@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row d-flex flex-column">
+        <div class="col d-flex">
+            <div class="text-center ">
+                <h2 class="my-3">MealCharges-List</h2>
+                <button class="btn btn-outline-success mb-5 px-4 me-4" routerLink="../addeditmealcharges">add</button>
+            </div>
+            <div class="ms-auto mt-3">
+                <input type="radio" id="sortlunch" name="intervalid" value=1 [(ngModel)]=intervalid (change)="sortedmealchargesdata()">
+                <label for="sortlunch">Lunch</label><br>    
+                <input type="radio" id="sortdinner" name="intervalid" value=2 [(ngModel)]=intervalid (change)="sortedmealchargesdata()">
+                <label for="sortdinner">Dinner</label><br><br>
+                <input type="radio" id="asc" name="sorting1" value=1 [(ngModel)]=sorting (change)="sortedmealchargesdata()">
+                <label for="asc">Low-High</label><br>
+                <input type="radio" id="dsc" name="sorting1" value=0 [(ngModel)]=sorting (change)="sortedmealchargesdata()">
+                <label for="dsc">High-Low</label><br>
+            </div>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchMealCharge" autocomplete="off"
+                        placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Restaurants</th>
+                            <th>Interval</th>
+                            <th>Charge</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let mealcharges of mealchargesList | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } | filter : searchMealCharge;let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{mealcharges.restaurantName}}</td>
+                            <td>{{mealcharges.intervalName}}</td>
+                            <td>{{mealcharges.charge}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditmealcharges/{{mealcharges.chargeId}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{mealcharges.chargeId}}
+                                    (click)="deleteMealcharge($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

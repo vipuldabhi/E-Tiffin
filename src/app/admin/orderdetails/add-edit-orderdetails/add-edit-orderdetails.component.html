@@ -1,0 +1,97 @@
+<div>                                               
+    <div class="row">
+        <div class="text-center mt-3">
+            <h2 class="my-3" *ngIf="isAddMode">Add OrderDetails</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit OrderDetails</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="orderForm" (ngSubmit)="submit()">
+                <div class="form-group mb-4">
+                    <select class="form-select" id="userId" formControlName="userId">
+                        <option>Please Select UserId</option>
+                        <ng-container *ngFor="let user of userList">
+                            <option value={{user.userId}}>{{user.userId}}</option>
+                        </ng-container>
+                    </select>
+                </div>                           
+                <div class="form-group mb-4">
+                    <select class="form-select" id="intervalId" formControlName="intervalId">
+                        <option>Please Select Interval</option>    
+                        <ng-container *ngFor="let interval of intervalList">
+                            <option value={{interval.intervalId}}>{{interval.intervalName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="typeId" formControlName="typeId">
+                        <option>Please Select FoodType</option>    
+                        <ng-container *ngFor="let foodtype of foodtypeList">
+                            <option value={{foodtype.typeId}}>{{foodtype.typeName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="durationId" formControlName="durationId">
+                        <option>Please Select DurationTime</option>    
+                        <ng-container *ngFor="let duration of durationList">
+                            <option value={{duration.durationId}}>{{duration.durationTime}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="orderDate">Enter OrderDate</label>
+                    <input type="datetime-local" formControlName="orderDate" class="form-control" id="orderDate"
+                        placeholder="Enter orderDate" value="orderDate">
+                    <div *ngIf="orderDate!==null">
+                        <div *ngIf="orderDate.invalid && (orderDate.dirty || orderDate.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="orderDate.errors?.['required']">
+                                orderDate is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="areaId" formControlName="areaId">
+                        <option>Please Select Area</option>
+                        <ng-container *ngFor="let area of areaList">
+                            <option value={{area.areaId}}>{{area.areaName}}</option>
+                        </ng-container>
+                    </select>                             
+                </div>
+                <div class="form-group">
+                    <label for="address">Enter Address</label>
+                    <input type="text" formControlName="address" class="form-control" id="address"
+                        placeholder="Enter Address" value="address">
+                    <div *ngIf="address!==null">
+                        <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="address.errors?.['required']">
+                                Address is required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <select class="form-select" id="restaurantsId" formControlName="restaurantsId">
+                        <option>Please Select Restaurant</option>
+                        <ng-container *ngFor="let restaurant of restaurantList">
+                            <option value={{restaurant.id}}>{{restaurant.restaurantName}}</option>
+                        </ng-container>
+                    </select>                             
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary my-4 ms-5" (click)="calculateTotalCharge()">
+                        Calculate Total Charge</button>
+                </div>
+                <div>
+                    <span>Your Payable Total Charge is : </span>
+                    <input id="totalCharge" formControlName="totalCharge" value={{Charge}} ngDefaultControl>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary my-4 ms-5" >add-edit</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>                          

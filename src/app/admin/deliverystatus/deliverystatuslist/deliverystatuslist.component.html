@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center ">
+            <h2 class="my-3">DeliveryStatus-List</h2>
+            <button class="btn btn-outline-success mb-4 px-4 me-4" routerLink="../addeditdeliverystatus">add</button>
+
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchDeliveryStatus" autocomplete="off"
+                        placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>OrderId</th>
+                            <th>Interval</th>
+                            <th>Status</th>
+                            <th>DeliveryDate</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let deliverystatus of deliverystatusList | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } | filter : searchDeliveryStatus ;
+                    let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{deliverystatus.orderId}}</td>
+                            <td>{{deliverystatus.intervalName}}</td>
+                            <td>{{deliverystatus.status}}</td>
+                            <td>{{deliverystatus.deliveryDate | date:'mediumDate'}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditdeliverystatus/{{deliverystatus.deliveryId}}">edit</button>
+                            </td>
+                            <td><button type="button" class="btn btn-outline-danger"
+                                    value={{deliverystatus.deliveryId}} (click)="deleteStatus($event)">remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

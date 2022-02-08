@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center ">
+            <h2 class="my-3">DeliveryCharges-List</h2>
+            <button class="btn btn-outline-success mb-4 px-4 me-4" routerLink="../addeditdeliverycharges">add</button>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>SrNo.</th>
+                            <th>DurationTime</th>
+                            <th>Charge</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let deliverycharges of deliverychargesList | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        };let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{deliverycharges.durationTime}}</td>
+                            <td>{{deliverycharges.charge}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditdeliverycharges/{{deliverycharges.id}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{deliverycharges.id}}
+                                    (click)="deleteDeliveryCharges($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

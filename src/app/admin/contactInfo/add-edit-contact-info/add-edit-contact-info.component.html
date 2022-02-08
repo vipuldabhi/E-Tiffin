@@ -1,0 +1,92 @@
+<div>
+    <div class="row">
+        <div class="text-center">
+            <h2 class="my-3" *ngIf="isAddMode">Add ContactInfo</h2>
+            <h2 class="my-3" *ngIf="!isAddMode">Edit ContactInfo</h2>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+            <form [formGroup]="contactInfoForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="fullName"></label>
+                    <input type="text" formControlName="fullName" class="form-control" id="fullName"
+                        placeholder="Enter FullName" value="fullName">
+                    <div *ngIf="fullName!==null">
+                        <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="fullName.errors?.['required']">
+                                fullName is required.
+                            </div>
+                            <div *ngIf="fullName.errors?.['pattern']">
+                                fullName only contain alphabets.
+                            </div>
+                            <div *ngIf="fullName.errors?.['minlength']">
+                                FullName is atleast 5 character long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email"></label>
+                    <input type="email" formControlName="email" class="form-control" id="email"
+                        placeholder="Enter Email" value="email">
+                    <div *ngIf="email!==null">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="email.errors?.['required']">
+                                Email is required.
+                            </div>
+                            <div *ngIf="email.errors?.['pattern']">
+                                Enter Valid Email.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactNo"></label>
+                    <input type="text" formControlName="contactNo" class="form-control" id="contactNo"
+                        placeholder="Enter ContactNo" value="contactNo">
+                    <div *ngIf="contactNo!==null">
+                        <div *ngIf="contactNo.invalid && (contactNo.dirty || contactNo.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="contactNo.errors?.['required']">
+                                ContactNo is required.
+                            </div>
+                            <div *ngIf="contactNo.errors?.['pattern']">
+                                ContactNo Only Contains Digits.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject"></label>
+                    <input type="text" formControlName="subject" class="form-control" id="subject"
+                        placeholder="Enter Subject" value="subject">
+                    <div *ngIf="subject!==null">
+                        <div *ngIf="subject.invalid && (subject.dirty || subject.touched)"
+                            class="text-danger m-0 p-0 ms-1 mt-1">
+                            <div *ngIf="subject.errors?.['required']">
+                                Subject is required.
+                            </div>
+                            <div *ngIf="subject.errors?.['pattern']">
+                                Subject is required.
+                            </div>
+                            <div *ngIf="subject.errors?.['minlength']">
+                                Subject is atleast 10 character long.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3" *ngIf="!isAddMode">
+                    <select class="form-select" formControlName="isSolved">
+                        <option value=false>UnSolved</option>
+                        <option value=true>Solved</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary my-4 ms-5"
+                        [ngClass]="{disabled : contactInfoForm.invalid}">add-update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

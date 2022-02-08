@@ -1,0 +1,111 @@
+<div class="">
+    <div class="row shadow m-5 order">
+        <div class="col d-flex justify-content-center m-4">
+            <form [formGroup]="orderForm" (ngSubmit)="submit()">
+                <div>
+                    <h5>Meal For : </h5>
+                    <ng-container *ngFor="let interval of intervalList">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" formControlName="intervalId"
+                                id={{interval.intervalName}} (change)="changemealfor()" value={{interval.intervalId}}>
+                            <label class="form-check-label" for={{interval.intervalName}}>
+                                {{interval.intervalName}}
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5>Meal Type : </h5>
+                    <ng-container *ngFor="let type of foodtypeList">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" formControlName="typeId" id={{type.typeName}}
+                                (change)="changetype()" value={{type.typeId}}>
+                            <label class="form-check-label" for={{type.typeName}}>
+                                {{type.typeName}}
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+                <div>
+                    <h5>Meal Duration : </h5>
+                    <ng-container *ngFor="let duration of durationList">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" formControlName="durationId"
+                                id={{duration.durationTime}} (change)="changeduration()" value={{duration.durationId}}>
+                            <label class="form-check-label" for={{duration.durationTime}}>
+                                {{duration.durationTime}}
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+                <div *ngIf="mealfor && type && duration" class="form-group">
+                    <h5>Restaurant : </h5>
+                    <select class="form-select" aria-label="Default select example" (change)="changeRestaurant()"
+                        formControlName="restaurantsId">
+                        <ng-container *ngFor="let restaurant of restaurantList">
+                            <option value={{restaurant.id}}>{{restaurant.restaurantName}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div *ngIf="restaurant">
+                    <p>Total Charge : {{totalcharge}}</p>
+                </div>
+                <div *ngIf="restaurant">
+                    <h5>Area : </h5>
+                    <select class="form-select" aria-label="Default select example" (change)="changeArea()"
+                        formControlName="areaId">
+                        <ng-container *ngFor="let area of areaList">
+                            <option value={{area.areaId}}>{{area.areaName}}</option>
+                        </ng-container>
+                    </select>
+                    <h5>Enter Address : </h5>
+                    <input type="text" id="address" formControlName="address" (change)="changeaddress($event)">
+                </div>
+                <div *ngIf="restaurant">
+                    <h5>Start OrderDate : </h5>
+                    <input type="datetime-local" id="orderDate" formControlName="orderDate"
+                        (change)="changeorderdate()">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <div class="w-50 mx-5 p-5 shadow"  style="position: sticky;top: 100px;" *ngIf="Interval">
+            <div *ngIf="Interval">
+                <span>Interval : </span>
+                <span>{{Interval}}</span><br>
+            </div>
+            <div *ngIf="Type">
+                <span>Food-Type : </span>
+                <span>{{Type}}</span><br>
+            </div>
+            <div *ngIf="Duration">
+                <span>DurationTime : </span>
+                <span>{{Duration}}</span><br>
+            </div>
+            <div *ngIf="Restaurant">
+                <span>Restaurant : </span>
+                <span>{{Restaurant}}</span><br>
+            </div>
+            <div *ngIf="OrderDate">
+                <span>OrderDate : </span>
+                <span>{{OrderDate | date:'dd/MM/yyyy'}}</span><br>
+            </div>
+            <div *ngIf="Area">
+                <span>Area : </span>
+                <span>{{Area}}</span><br>
+            </div>
+            <div *ngIf="Address">
+                <span>Address : </span>
+                <span>{{Address}}</span><br>
+            </div>
+            <div *ngIf="totalcharge!=0" class="mt-3">
+                <span>Total Payable Charge : </span>
+                <span>{{totalcharge}}</span><br>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

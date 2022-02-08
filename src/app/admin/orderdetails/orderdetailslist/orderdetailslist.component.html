@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row d-flex flex-column">
+        <div class="col d-flex">
+            <div class="text-center mt-4">
+                <h2 class="my-3">OrderDetails-List</h2>
+                <button class="btn btn-outline-success mb-5 px-4 me-4" routerLink="../addeditorderdetails">add</button>
+            </div>
+            <div class="mt-3 ms-auto d-flex flex-column justify-content-center">
+                <div>
+                    <label>Sort By : </label><br>
+                    <input type="radio" id="asc" name="sorting" value=1 [(ngModel)]=sorting (change)="change()"
+                        class="mt-2">
+                    <label for="asc">low-high</label><br>
+                    <input type="radio" id="dsc" name="sorting" value=0 [(ngModel)]=sorting (change)="change()">
+                    <label for="dsc">high-low</label><br>
+                </div><br>
+                <div class="mb-2">
+                    <input type="radio" id="orderDate" name="reference" value=3 [(ngModel)]=reference 
+                    (change)="change()" class="mt-2">
+                    <label for="orderDate">OrderDate</label><br>
+                    <input type="radio" id="orderPlaceDate" name="reference" value=4 [(ngModel)]=reference (change)="change()">
+                    <label for="orderPlaceDate">OrderPlaceDate</label><br>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchOrder" autocomplete="off"
+                        placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>UserId</th>
+                            <th>Interval</th>
+                            <th>Type</th>
+                            <th>DurationTime</th>
+                            <th>OrderPlaceDate</th>
+                            <th>OrderDate</th>
+                            <th>Area</th>
+                            <th>Address</th>
+                            <th>Charge</th>
+                            <th>Restaurant</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let order of orderList | filter : searchOrder | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } ; let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{order.userId}}</td>
+                            <td>{{order.intervalName}}</td>
+                            <td>{{order.typeName}}</td>
+                            <td>{{order.durationTime}}</td>
+                            <td>{{order.orderPlaceDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-nowrap">{{order.orderDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{order.areaName}}</td>
+                            <td>{{order.address}}</td>
+                            <td>{{order.totalCharge}}</td>
+                            <td>{{order.restaurantName}}</td>
+
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditorderdetails/{{order.orderId}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{order.orderId}}
+                                    (click)="deleteMenu($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="row d-flex flex-column">
+        <div class="col d-flex">
+            <div class="text-center ">
+                <h2 class="my-3">Restaurants-List</h2>
+                <button class="btn btn-outline-success mb-5 px-4 me-4" routerLink="../addeditrestaurant">add</button>
+            </div>
+            <div class="mt-4 ms-auto d-flex justify-content-center">
+                <div>
+                    <label>Sort By : </label><br>
+                    <input type="radio" id="a-z" name="sorting" value=1 (change)="change($event)" class="mt-2">
+                    <label for="a-z">A-Z</label><br>
+                    <input type="radio" id="z-a" name="sorting" value=0 (change)="change($event)">
+                    <label for="z-a">Z-A</label><br>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="table-responsive">
+                <div class="mb-2 ms-auto w-25">
+                    <input class="form-control" type="text" name="searchres" [(ngModel)]="searchRestaurant"
+                        autocomplete="off" placeholder="Search">
+                </div>
+                <table class="table table-bordered text-center mb-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>RestaurantName</th>
+                            <th>AreaName</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let restaurant of restaurantList | filter : searchRestaurant | paginate : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count
+                        } ; let i=index">
+                        <tr>
+                            <td>{{(page-1)*pageSize+(i+1)}}</td>
+                            <td>{{restaurant.restaurantName}}</td>
+                            <td>{{restaurant.areaName}}</td>
+                            <td><button type="button" class="btn btn-outline-primary"
+                                    routerLink="../addeditrestaurant/{{restaurant.id}}">edit</button></td>
+                            <td><button type="button" class="btn btn-outline-danger" value={{restaurant.id}}
+                                    (click)="deleteRestaurant($event)">remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+                        (pageChange)="handlePageChange($event)"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
